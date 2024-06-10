@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <string.h>
+
+void monoalphabeticSubstitution(char message[], char key[]) {
+    int i;
+    for(i = 0; i < strlen(message); i++) {
+        if(message[i] >= 'A' && message[i] <= 'Z') {
+            message[i] = key[message[i] - 'A'];
+        }
+        else if(message[i] >= 'a' && message[i] <= 'z') {
+            message[i] = key[message[i] - 'a'];
+        }
+    }
+    printf("The encrypted message is: %s\n", message);
+}
+
+int main() {
+    char message[100];
+    char key[] = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm"; // Example key for substitution
+
+    printf("Enter a message to encrypt: ");
+    fgets(message, sizeof(message), stdin);
+
+    monoalphabeticSubstitution(message, key);
+
+    return 0;
+}
