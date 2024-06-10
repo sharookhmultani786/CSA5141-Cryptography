@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_LENGTH 100
+
+int gcd(int a, int b);
+int modInverse(int a, int m);
+void affineCaesarCipher(char *text, int a, int b);
+
+int main() {
+    char text[MAX_LENGTH];
+    int a, b;
+
+    printf("Enter the text to encrypt: ");
+    fgets(text, sizeof(text), stdin);
+
+    printf("Enter the value of 'a' (must be relatively prime to 26): ");
+    scanf("%d", &a);
+
+    if (gcd(a, 26) != 1) {
+        printf("Error: 'a' must be relatively prime to 26.\n");
+        return 1;
+    }
+
+    printf("Enter the value of 'b' (0-25): ");
+    scanf("%d", &b);
+
+    if (b < 0 || b > 25) {
+        printf("Error: 'b' must be between 0 and 25.\n");
+        return 1;
+    }
+
+    affineCaesarCipher(text, a, b);
+    printf("Encrypted text: %s\n", text);
+
+    return 0;
+}
+
+int gcd(int a, int b) {
+    if (b == 0)
+        return a;
+    return gcd(b, a % b);
+}
+
+int modInverse(int a, int m) {
+    a = a % m;
+    for (int x = 1; x < m; x++)
+        if ((a * x) % m == 1)
+            return x;
+    return -1;
+}
+
+void affineCaesarCipher(char *text, int a, int b) {
+    int i;
+    for (i = 0; i < strlen(text); i++) {
+        if (text[i] >= 'A' && text[i] <= 'Z') {
+            text[i] = 'A' + ((a * (text[i] - 'A') + b) % 26);
+        } else if (text[i] >= 'a' && text[i] <= 'z') {
+            text[i] = 'a' + ((a * (text[i] - 'a') + b) % 26);
+        }
+    }
+}
