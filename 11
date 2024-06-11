@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    double possibleKeys = 1;
+    for (int i = 25; i > 0; i--) {
+        possibleKeys *= i;
+    }
+
+    double powerOf2 = log2(possibleKeys);
+
+    printf("The approximate number of possible keys for the Playfair cipher is 2^%.2f\n", powerOf2);
+
+    return 0;
+}
