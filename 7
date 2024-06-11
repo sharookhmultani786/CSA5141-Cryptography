@@ -1,0 +1,34 @@
+ #include <stdio.h>
+
+int main() {
+    char ciphertext[] = "53{4†305))6*;4826)44.4$);806*;48†8160))85;;]8*,$8†83(88)5*7;46(;88*96*2;8)$(;485);52:$(;4956*2(5*4)818;4069285);)6*8)4$$;1($9;48081;8:8¢1;48*85;4)485\\528806*81($9;48;(88;4($?34;48)4$;161;:188;$?;";
+    char plaintext[256] = {0};  // Assuming ciphertext is not longer than 255 chars
+    int freq[256] = {0};
+    int i, max_freq = 0, e_char = 0;
+
+    // Calculate frequency of each character in the ciphertext
+    for (i = 0; ciphertext[i] != '\0'; i++) {
+        freq[(int)ciphertext[i]]++;
+    }
+
+    // Find the most frequent character
+    for (i = 0; i < 256; i++) {
+        if (freq[i] > max_freq) {
+            max_freq = freq[i];
+            e_char = i;
+        }
+    }
+
+    // Assume the most frequent character is 'e'
+    for (i = 0; ciphertext[i] != '\0'; i++) {
+        if (ciphertext[i] == e_char) {
+            plaintext[i] = 'e';
+        } else {
+            plaintext[i] = ciphertext[i];
+        }
+    }
+
+    // Print the partially decrypted message
+    printf("Partially decrypted message:\n%s\n", plaintext);
+    return 0;
+}
