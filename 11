@@ -2,14 +2,27 @@
 #include <math.h>
 
 int main() {
-    double possibleKeys = 1;
-    for (int i = 25; i > 0; i--) {
-        possibleKeys *= i;
+    int total_chars = 26; // Total number of alphabets
+    long long possible_keys = 1;
+
+    // Calculate the possible number of keys
+    for(int i = 0; i < 25; i++) {
+        possible_keys *= (total_chars - i);
     }
 
-    double powerOf2 = log2(possibleKeys);
+    printf("The possible number of keys is: %lld\n", possible_keys);
 
-    printf("The approximate number of possible keys for the Playfair cipher is 2^%.2f\n", powerOf2);
+    // Express the answer as an approximate power of 2
+    double log_value = log2(possible_keys);
+    printf("The approximate power of 2 is: 2^%.2f\n", log_value);
+
+    // Calculate the effectively unique keys
+    long long unique_keys = possible_keys / (8 * 3 * 2);
+    printf("The effectively unique keys is: %lld\n", unique_keys);
+
+    // Express the answer as an approximate power of 2
+    log_value = log2(unique_keys);
+    printf("The approximate power of 2 is: 2^%.2f\n", log_value);
 
     return 0;
 }
